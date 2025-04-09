@@ -1,0 +1,91 @@
+<!DOCTYPE html> <!-- Tipo de documento: HTML5 -->
+<html lang="es"> <!-- Idioma principal: español -->
+<head>
+  <meta charset="UTF-8"> <!-- Codificación de caracteres -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Responsive para móviles -->
+  <title>Gestor de Tareas</title> <!-- Título en la pestaña -->
+
+  <!-- Bootstrap CSS (estilos visuales) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons (íconos visuales) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- jQuery (para manejar interacciones y AJAX) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- Bootstrap JS (para alertas, botones, modales, etc) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<!-- Estilo general: iniciamos con fondo oscuro y texto claro -->
+<body id="body" class="bg-dark text-light">
+
+  <div class="container py-5">
+    <!-- Título centrado con ícono -->
+    <h1 class="text-center mb-4 display-5">
+      <i class="bi bi-card-checklist"></i> Gestor de Tareas
+    </h1>
+
+    <!-- Botón para cambiar entre modo oscuro y claro -->
+    <div class="text-end mb-3">
+      <button id="btnTema" class="btn btn-outline-secondary">
+        <i class="bi bi-moon-fill"></i> Modo Oscuro
+      </button>
+    </div>
+    
+    <!-- Tarjeta principal con sombra -->
+    <div class="card shadow-lg">
+      <div class="card-body bg-light text-dark" id="contenidoTarjeta"> <!-- Fondo claro dentro de la tarjeta -->
+
+        <!-- Div donde se mostrarán mensajes dinámicos de éxito o error -->
+        <div id="mensaje" class="mb-3"></div>
+
+        <!-- Formulario para agregar nueva tarea -->
+        <form id="formTarea" class="row g-3 align-items-end">
+          <div class="col-md-9">
+            <label for="tarea" class="form-label">Nueva tarea</label>
+            <input type="text" class="form-control" id="tarea" name="tarea" placeholder="Escribe una nueva tarea...">
+          </div>
+          <div class="col-md-3">
+            <button type="submit" class="btn btn-success w-100">
+              <i class="bi bi-plus-circle"></i> Agregar
+            </button>
+          </div>
+        </form>
+
+        <!-- 🔢 Contador dinámico de tareas -->
+        <div id="contadorTareas" class="alert alert-info text-center mt-4">
+          🔢 Tienes <strong><%= tareas.length %></strong> <%= tareas.length === 1 ? 'tarea pendiente' : 'tareas pendientes' %>
+        </div>
+
+        <hr>
+
+        <!-- Lista de tareas con Bootstrap -->
+        <ul class="list-group mt-3" id="listaTareas">
+          <% tareas.forEach((tarea, index) => { %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div class="form-check">
+                <!-- Checkbox para marcar tarea como completada -->
+                <input class="form-check-input me-2 completar-tarea" type="checkbox" data-index="<%= index %>" <%= tarea.completada ? 'checked' : '' %>>
+                <!-- Texto de la tarea, tachado si está completada -->
+                <label class="form-check-label <%= tarea.completada ? 'text-decoration-line-through text-muted' : '' %>">
+                  <%= tarea.texto %>
+                </label>
+              </div>
+              <!-- Botón para eliminar tarea -->
+              <button class="btn btn-sm btn-danger eliminar-tarea" data-index="<%= index %>">
+                <i class="bi bi-trash3-fill"></i> <!-- Ícono de papelera -->
+              </button>
+            </li>
+          <% }) %>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Carga el archivo main.js que contiene la lógica del proyecto (agregar, eliminar, alternar tema, etc) -->
+  <script src="/js/main.js"></script>
+</body>
+</html>

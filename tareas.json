@@ -1,0 +1,14 @@
+[
+  {
+    "texto": "Lavar moto",
+    "completada": true
+  },
+  {
+    "texto": "Pasear prro",
+    "completada": false
+  },
+  {
+    "texto": "Lavar baño",
+    "completada": false
+  }
+]
